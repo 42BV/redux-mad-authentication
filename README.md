@@ -28,13 +28,13 @@ First install the following dependencies in the package.json:
 
 Now add the authentication-reducer to your rootReducer for example:
 
-```JavaScript
+```js
 // @flow
 
 import { combineReducers } from 'redux';
 
-import type { AuthenticationStore } from '../authentication/authentication-reducer';
-import { authentication } from '../authentication/authentication-reducer';
+import type { AuthenticationStore } from 'redux-mad-authentication';
+import { authentication } from 'redux-mad-authentication';
 
 export type Store = {
   authentication: AuthenticationStore
@@ -53,9 +53,9 @@ the logged in user.
 
 Next you have to configure the authentication module:
 
-```JavaScript
+```js
 import { createStore } from 'redux';
-import { configureAuthentication } from './authentication';
+import { configureAuthentication } from 'redux-mad-authentication';
 
 export const store = createStore(
   rootReducer,
@@ -101,14 +101,14 @@ Here's what a LoginForm should do:
 
 For example:
 
-```JavaScript
+```js
 // @flow
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, locationShape } from 'react-router-dom';
 
-import { login, current } from './authentication';
+import { login, current } from 'redux-mad-authentication';
 
 import type { Store } from '../redux/root-reducer';
 
@@ -225,7 +225,7 @@ logged in.
 
 For example:
 
-```JavaScript
+```js
 // @flow
 
 import React, { Component } from 'react';
@@ -235,7 +235,7 @@ import { Redirect } from 'react-router-dom';
 
 import type { Store } from '.redux/root-reducer';
 
-import { logout } from './authentication';
+import { logout } from 'redux-mad-authentication';
 
 type Props = {,
   isLoggedIn: boolean
@@ -270,7 +270,7 @@ export default connect((store: Store) => {
 Some routes can only be accessible when the user is logged in.
 You can do this via the PrivateRoute for example:
 
-```JavaScript
+```js
 <BrowserRouter history={ browserHistory }>
   <div>
     <Route exact path="/" component={ Dashboard } />
@@ -292,8 +292,8 @@ to the Config's route `loginRoute`.
 Some routes can only be accessed by a type of user or a specific
 user. You can do this via the AuthorizedRoute.
 
-```JavaScript
-<BrowserRouter history={ browserHistory }>
+```js
+<BrowserRouter>
   <div>
     <Route exact path="/" component={ Dashboard } />
     <Route path="/login" component={ Login }/>
@@ -329,7 +329,11 @@ We can use react-redux's connect to achieve this.
 
 For example:
 
-```JavaScript
+```js
+
+import { connect } from 'react-redux';
+
+import type { Store } from '.redux/root-reducer';
 
 function User(props) {
   if (isLoggedIn) {
@@ -354,7 +358,7 @@ To perform request with the CSRF token and with the cookies from
 the current user. You can use the 'authFetch' utility from this
 library:
 
-```JavaScript
+```js
 
 import 'authFetch' from './authentication'
 

@@ -1,3 +1,5 @@
+// @flow
+
 export { configureAuthentication } from './config.js';
 export { authentication } from './authentication-reducer.js';
 export { authFetch } from './utils.js';
