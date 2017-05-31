@@ -1,5 +1,8 @@
 # About
 
+[![Build Status](https://travis-ci.org/42BV/redux-mad-authentication.svg?branch=master)](https://travis-ci.org/42BV/redux-mad-authentication)
+[![Codecov](https://codecov.io/gh/42BV/redux-mad-authentication/branch/master/graph/badge.svg)](https://codecov.io/gh/42BV/redux-mad-authentication)
+
 This is 42's authentication module for Redux in combination with
 a specific Spring Security settings.
 
