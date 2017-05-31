@@ -2,6 +2,8 @@
 
 import type { AuthenticationStore } from './authentication-reducer';
 
+import type { Action } from './authentication-reducer';
+
 export type Config = {
   // The URL to do a GET request to for a handshake.
   handshakeUrl: string,
@@ -19,7 +21,7 @@ export type Config = {
   loginRoute: string,
 
   // The dispatch function for the Redux store.
-  dispatch: () => void,
+  dispatch: (Action) => void,
 
   // A function which returns the latests AuthenticationStore from Redux.
   authenticationStore: () => AuthenticationStore
