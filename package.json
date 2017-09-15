@@ -1,6 +1,6 @@
 {
   "name": "redux-mad-authentication",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Authenticating with a Spring Security application and storing the currentUser in Redux.",
   "files": [
     "lib"
@@ -55,5 +55,6 @@
     "prepublish": "rm -rf lib && npm test && npm run babel-prepublish && npm run flow-prepublish",
     "babel-prepublish": "babel src/ -d lib",
     "flow-prepublish": "flow-copy-source src lib"
-  }
+  },
+  "dependencies": {}
 }

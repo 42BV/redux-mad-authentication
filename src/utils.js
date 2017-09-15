@@ -16,11 +16,12 @@ import { handleLogout } from './authentication-reducer';
  * @param {Object} options optional object to send with the request
  * @return {Promise} fetch promise
  */
-export function authFetch(url: string, options: Object = {}): Promise<*> {
+export function authFetch(url: RequestInfo, options?: RequestOptions = {}): Promise<*> {
   const { authenticationStore, dispatch } = getConfig();
 
   const headers = options.headers || {};
   if (options.method !== 'get') {
+    // $FlowFixMe
     headers['X-XSRF-TOKEN'] = authenticationStore().csrfToken;
   }
 
