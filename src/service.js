@@ -58,7 +58,7 @@ export function login(body: Object): Promise<*> {
  *
  * @returns { Promise } An empty promise.
  */
-export function current() {
+export function current(): Promise<*> {
   const { currentUserUrl, dispatch } = getConfig();
 
   return handshake().then(() => {
