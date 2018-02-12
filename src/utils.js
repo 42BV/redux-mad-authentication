@@ -25,7 +25,7 @@ export function authFetch(url: RequestInfo, options?: RequestOptions = {}): Prom
     headers['X-XSRF-TOKEN'] = authenticationStore().csrfToken;
   }
 
-  const config = { ...options, credentials: 'include', headers };
+  const config = { ...options, credentials: 'same-origin', headers };
 
   return fetch (url, config).then((response: Response) => {
     if (response.status === 401) {

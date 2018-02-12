@@ -35,7 +35,7 @@ describe('authFetch', () => {
     test('without CSRF token', async () => {
       fetchMock.get('/api/GET', { fake: 'fake' }, {
         method: 'get',
-        credentials: 'include'
+        credentials: 'same-origin'
       });
 
       const data = await authFetch('/api/GET', { method: 'get' });
@@ -50,7 +50,7 @@ describe('authFetch', () => {
     test('with CSRF token', async () => {
       fetchMock.post('/api/POST', { fake: 'fake' }, {
         method: 'post',
-        credentials: 'include',
+        credentials: 'same-origin',
         headers: { 'X-XSRF-TOKEN': 'd3add0g' }
       });
 
@@ -68,7 +68,7 @@ describe('authFetch', () => {
     test('with user headers', async () => {
       fetchMock.post('/api/POST', { fake: 'fake' }, {
         method: 'post',
-        credentials: 'include',
+        credentials: 'same-origin',
         headers: { 'X-XSRF-TOKEN': 'd3add0g', 'X-AWESOME': '42' }
       });
 
@@ -91,7 +91,7 @@ describe('authFetch', () => {
       body: '{ "fake": "fake" }'
     }, {
       method: 'get',
-      credentials: 'include'
+      credentials: 'same-origin'
     });
 
     const data = await authFetch('/api/GET', { method: 'get' });
