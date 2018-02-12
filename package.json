@@ -1,6 +1,6 @@
 {
   "name": "redux-mad-authentication",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Authenticating with a Spring Security application and storing the currentUser in Redux.",
   "files": [
     "lib"
@@ -37,12 +37,12 @@
     "babel-preset-react": "6.23.0",
     "babel-runtime": "6.23.0",
     "fetch-mock": "5.9.4",
-    "flow-bin": "0.54.1",
+    "flow-bin": "0.65.0",
     "flow-copy-source": "1.1.0",
     "jest": "20.0.4",
-    "react": "15.4.2",
+    "react": "16.2.0",
     "react-addons-test-utils": "15.4.2",
-    "react-dom": "15.4.2",
+    "react-dom": "16.2.0",
     "regenerator-runtime": "0.10.3",
     "redux": "^3.6.0",
     "react-router-dom": "^4.0.0"
@@ -51,7 +51,7 @@
     "start": "jest test --watch",
     "test": "npm run flow && jest test --coverage",
     "coverage": "npm test -- --coverage",
-    "flow": "flow",
+    "flow": "flow version && flow",
     "prepublish": "rm -rf lib && npm test && npm run babel-prepublish && npm run flow-prepublish",
     "babel-prepublish": "babel src/ -d lib",
     "flow-prepublish": "flow-copy-source src lib"
