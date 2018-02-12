@@ -11,7 +11,6 @@ describe('AuthorizedRoute', () => {
 
   function setup({ isLoggedIn }) {
     configureAuthentication({
-      handshakeUrl: '/api/handshake',
       authenticationUrl: '/api/authentication',
       currentUserUrl: '/api/authentication/current',
       loginRoute: '/login',

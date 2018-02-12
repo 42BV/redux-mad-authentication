@@ -5,9 +5,6 @@ import type { AuthenticationStore } from './authentication-reducer';
 import type { Action } from './authentication-reducer';
 
 export type Config = {
-  // The URL to do a GET request to for a handshake.
-  handshakeUrl: string,
-
   // The URL to POST login request and DELETE logout request.
   authenticationUrl: string,
 

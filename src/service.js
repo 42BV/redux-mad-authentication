@@ -1,7 +1,7 @@
 // @flow
 
 import { authFetch } from './utils';
-import { setCsrfToken, handleLogin, handleLogout } from './authentication-reducer';
+import { handleLogin, handleLogout } from './authentication-reducer';
 
 import { getConfig } from './config';
 
@@ -26,19 +26,17 @@ import { getConfig } from './config';
 export function login(body: Object): Promise<*> {
   const { authenticationUrl, dispatch } = getConfig();
 
-  return handshake().then(() => {
-    return authFetch(authenticationUrl, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'post',
-      body: JSON.stringify(body)
-    });
+  return authFetch(authenticationUrl, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'post',
+    body: JSON.stringify(body)
   })
   .then(tryParse)
   .then((user) => {
     dispatch(handleLogin(user));
-  }).then(handshake);
+  });
 }
 
 /**
@@ -61,13 +59,11 @@ export function login(body: Object): Promise<*> {
 export function current(): Promise<*> {
   const { currentUserUrl, dispatch } = getConfig();
 
-  return handshake().then(() => {
-    return authFetch(currentUserUrl, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'get'
-    });
+  return authFetch(currentUserUrl, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'get'
   })
   .then(tryParse)
   .then((user) => {
@@ -95,37 +91,6 @@ export function logout() {
     } else {
       throw response;
     }
-  });
-}
-
-/**
- * Performs a handshake request to the back-end. It expects
- * the back-end to respond with a JSON response containing the
- * 'csrfToken'.
- *
- * The URL it will send the request to is defined by the 'handshakeUrl'
- * from the Config object.
- *
- * An example of the response:
- *
- * ```JSON
- * { "csrfToken":"94420011-067a-4928-bc74-3c42fdf767d8" }
- * ```
- *
- * When the request is succesfully made it will inform the
- * Redux AuthenticationStore that there is a new CSRF token.
- *
- * @returns { Promise } An empty promise.
- */
-function handshake(): Promise<*> {
-  const { handshakeUrl, dispatch } = getConfig();
-
-  return authFetch(handshakeUrl)
-  .then(tryParse)
-  .then((response) => {
-    const csrfToken = response.csrfToken;
-
-    dispatch(setCsrfToken(csrfToken));
   });
 }
 

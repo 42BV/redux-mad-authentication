@@ -9,11 +9,9 @@ import * as actions from '../src/authentication-reducer';
 
 describe('authFetch', () => {
   let dispatch;
-  let authenticationStore;
 
   beforeEach(() => {
     dispatch = jest.fn();
-    authenticationStore = () => ({ csrfToken: 'd3add0g' });
 
     actions.handleLogout = jest.fn(() => 'handleLogout');
 
@@ -23,8 +21,10 @@ describe('authFetch', () => {
       currentUserUrl: '/api/authentication/current',
       loginRoute: 'login',
       dispatch,
-      authenticationStore
+      authenticationStore: () => ({ isLoggedIn: false, currentUser: undefined })
     });
+
+    document.cookie = 'XSRF-TOKEN=d3add0g';
   });
 
   afterEach(() => {
@@ -38,7 +38,7 @@ describe('authFetch', () => {
         credentials: 'same-origin'
       });
 
-      const data = await authFetch('/api/GET', { method: 'get' });
+      const data = await authFetch('/api/GET');
 
       const json = await data.json();
 

@@ -11,12 +11,11 @@ describe('PrivateRoute', () => {
 
   function setup({ isLoggedIn }) {
     configureAuthentication({
-      handshakeUrl: '/api/handshake',
       authenticationUrl: '/api/authentication',
       currentUserUrl: '/api/authentication/current',
       loginRoute: '/login',
       dispatch: jest.fn(),
-      authenticationStore: () => ({ isLoggedIn })
+      authenticationStore: () => ({ isLoggedIn, currentUser: undefined })
     });
   }
 
