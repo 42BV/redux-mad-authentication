@@ -5,8 +5,8 @@ import { getConfig } from './config';
 import { handleLogout } from './authentication-reducer';
 
 /**
- * Calls fetch and makes sure that credentials: 'include' is passed in the
- * options block. Also adds the X-XSRF-TOKEN to the header when a
+ * Calls fetch and makes sure that credentials: 'same-origin' is passed 
+ * in the options block. Also adds the X-XSRF-TOKEN to the header when a
  * non 'get' request is made.
  *
  * When the request you send returns a 401 the user is automatically
@@ -17,12 +17,12 @@ import { handleLogout } from './authentication-reducer';
  * @return {Promise} fetch promise
  */
 export function authFetch(url: RequestInfo, options?: RequestOptions = {}): Promise<*> {
-  const { authenticationStore, dispatch } = getConfig();
+  const { dispatch } = getConfig();
 
   const headers = options.headers || {};
   if (options.method !== 'get') {
     // $FlowFixMe
-    headers['X-XSRF-TOKEN'] = authenticationStore().csrfToken;
+    headers['X-XSRF-TOKEN'] = getXSRFToken();
   }
 
   const config = { ...options, credentials: 'same-origin', headers };
@@ -35,5 +35,10 @@ export function authFetch(url: RequestInfo, options?: RequestOptions = {}): Prom
       return response;
     }
   });
+}
+
+// Get the XSRF token from the cookies.
+function getXSRFToken() {
+  return document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 }
 

@@ -62,9 +62,6 @@ export const store = createStore(
 );
 
 configureAuthentication({
-  // The URL of your Spring back-end where the handshake endpoint lives
-  handshakeUrl: '/api/authentication/handshake',
-
   // The URL of your Spring back-end where the user can login (POST) and logout(DELETE)
   authenticationUrl: '/api/authentication',
 
@@ -352,9 +349,9 @@ export default connect((store: Store) => {
 
 ```
 
-## Send a request with the CSRF token as the current user.
+## Send a request with the XSRF token as the current user.
 
-To perform request with the CSRF token and with the cookies from
+To perform request with the XSRF token and with the cookies from
 the current user. You can use the 'authFetch' utility from this
 library:
 
@@ -371,5 +368,5 @@ function getUser() {
 ```
 
 `authFetch` is a thin wrapper around `fetch`, it only adds the
-credentials and CSRF token, so it has the exact same arguments
+credentials and XSRF token, so it has the exact same arguments
 as `fetch`.

@@ -9,8 +9,7 @@ describe('Store: AuthenticationStore', () => {
 
     const expected = {
       currentUser: undefined,
-      isLoggedIn: false,
-      csrfToken: undefined
+      isLoggedIn: false
     };
 
     expect(authenticationStore).toEqual(expected);
@@ -39,15 +38,6 @@ describe('Store: AuthenticationStore', () => {
 
       expect(state.currentUser).toBe(undefined);
       expect(state.isLoggedIn).toBe(false);
-      expect(state.csrfToken).toBe(undefined);
-    });
-
-    test('setCsrfToken', () => {
-      store.dispatch(setCsrfToken('hoken-token'));
-
-      const state = store.getState();
-
-      expect(state.csrfToken).toBe('hoken-token');
     });
   });
 });

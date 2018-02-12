@@ -7,12 +7,11 @@ test('configuration lifecycle', () => {
 
   // Next we initialize the config.
   const config = {
-    handshakeUrl: '/api/handshake',
     authenticationUrl: '/api/authentication',
     currentUserUrl: '/api/authentication/current',
     loginRoute: '/login',
     dispath: jest.fn,
-    authenticationStore: () => ({ csrfToken: 'd3add0g' })
+    authenticationStore: () => ({ isLoggedIn: false, currentUser: undefined })
   };
 
   configureAuthentication(config);

@@ -2,19 +2,16 @@
 
 export type Action = 
   | { type: 'REDUX_MAD_AUTHENTICATION.LOGIN', currentUser: Object }
-  | { type: 'REDUX_MAD_AUTHENTICATION.LOGOUT' }
-  | { type: 'REDUX_MAD_AUTHENTICATION.SET_CSRF_TOKEN', csrfToken: string };
+  | { type: 'REDUX_MAD_AUTHENTICATION.LOGOUT' };
 
 export type AuthenticationStore = {
   +currentUser?: Object,
-  +isLoggedIn: boolean,
-  +csrfToken?: string
+  +isLoggedIn: boolean
 };
 
 export const initialState: AuthenticationStore = {
   currentUser: undefined,
-  isLoggedIn: false,
-  csrfToken: undefined
+  isLoggedIn: false
 };
 
 export function authentication(state: AuthenticationStore = initialState, action: Action): AuthenticationStore {
@@ -25,10 +22,6 @@ export function authentication(state: AuthenticationStore = initialState, action
 
     case 'REDUX_MAD_AUTHENTICATION.LOGOUT': {
       return { ...state, isLoggedIn: false, currentUser: undefined, csrfToken: undefined };
-    }
-
-    case 'REDUX_MAD_AUTHENTICATION.SET_CSRF_TOKEN': {
-      return { ...state, csrfToken: action.csrfToken };
     }
 
     default: {
@@ -43,8 +36,4 @@ export function handleLogin(currentUser: Object): Action {
 
 export function handleLogout(): Action {
   return { type: 'REDUX_MAD_AUTHENTICATION.LOGOUT' };
-}
-
-export function setCsrfToken(csrfToken: string): Action {
-  return { type: 'REDUX_MAD_AUTHENTICATION.SET_CSRF_TOKEN', csrfToken };
 }
