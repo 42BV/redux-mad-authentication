@@ -16,7 +16,6 @@ describe('authFetch', () => {
     actions.handleLogout = jest.fn(() => 'handleLogout');
 
     configureAuthentication({
-      handshakeUrl: '/api/handshake',
       authenticationUrl: '/api/authentication',
       currentUserUrl: '/api/authentication/current',
       loginRoute: 'login',
