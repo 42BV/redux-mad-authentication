@@ -1,28 +1,24 @@
-// @flow
+import { AuthenticationState, AuthenticationActions as Actions } from './authentication-reducer';
 
-import type { AuthenticationStore } from './authentication-reducer';
-
-import type { Action } from './authentication-reducer';
-
-export type Config = {
+export interface Config {
   // The URL to POST login request and DELETE logout request.
-  authenticationUrl: string,
+  authenticationUrl: string;
 
   // The URL to GET retrieve the current user from.
-  currentUserUrl: string,
+  currentUserUrl: string;
 
   /*
     The location to redirect the user to when the user is not logged in.
     Used by PrivateRoute and AuthorizedRoute.
-  */
-  loginRoute: string,
+    */
+  loginRoute: string;
 
   // The dispatch function for the Redux store.
-  dispatch: (Action) => void,
+  dispatch: (action: Actions) => void;
 
-  // A function which returns the latests AuthenticationStore from Redux.
-  authenticationStore: () => AuthenticationStore
-};
+  // A function which returns the latest AuthenticationStore from Redux.
+  authenticationStore: () => AuthenticationState;
+}
 
 let config: Config | null = null;
 
@@ -31,7 +27,7 @@ let config: Config | null = null;
  *
  * @param {Config} The new configuration
  */
-export function configureAuthentication(c: Config) {
+export function configureAuthentication(c: Config): void {
   config = c;
 }
 

@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "declaration": true,
+    "downlevelIteration": true,
+    "lib": [
+      "dom",
+      "es6",
+      "es2015.promise",
+      "scripthost"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "outDir": "./lib",
+    "removeComments": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es6",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+  },
+  "files": [
+    "src/index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+  ]
+}
