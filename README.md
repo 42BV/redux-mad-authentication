@@ -29,14 +29,10 @@ First install the following dependencies in the package.json:
 Now add the authentication-reducer to your rootReducer for example:
 
 ```js
-// @flow
-
 import { combineReducers } from 'redux';
+import { authentication, AuthenticationStore } from 'redux-mad-authentication';
 
-import type { AuthenticationStore } from 'redux-mad-authentication';
-import { authentication } from 'redux-mad-authentication';
-
-export type Store = {
+export interface Store {
   authentication: AuthenticationStore
 };
 
@@ -99,30 +95,26 @@ Here's what a LoginForm should do:
 For example:
 
 ```js
-// @flow
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, locationShape } from 'react-router-dom';
-
 import { login, current } from 'redux-mad-authentication';
 
-import type { Store } from '../redux/root-reducer';
+import { Store } from '../redux/root-reducer';
 
-type Props = {
+interface Props {
   loggedIn: boolean,
   location: locationShape
 };
 
-type State = {
+interface State {
   username: string,
   password: string,
   error: boolean,
   autoLoginFailed: boolean
 };
 
-export class Login extends Component<void, Props, State> {
-
+export class Login extends Component<Props, State> {
   state = {
     username: '',
     password: '',
@@ -223,22 +215,18 @@ logged in.
 For example:
 
 ```js
-// @flow
-
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-
-import type { Store } from '.redux/root-reducer';
-
+import { Store } from '.redux/root-reducer';
 import { logout } from 'redux-mad-authentication';
 
-type Props = {,
+interface Props {
   isLoggedIn: boolean
 };
 
-export class Logout extends Component<void, Props, void> {
+export class Logout extends Component<Props, void> {
 
   onLogoutClick() {
     logout();
@@ -329,8 +317,7 @@ For example:
 ```js
 
 import { connect } from 'react-redux';
-
-import type { Store } from '.redux/root-reducer';
+import { Store } from '.redux/root-reducer';
 
 function User(props) {
   if (isLoggedIn) {

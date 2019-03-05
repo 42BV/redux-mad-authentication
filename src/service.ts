@@ -1,9 +1,15 @@
-// @flow
-
 import { authFetch } from './utils';
 import { handleLogin, handleLogout } from './authentication-reducer';
-
 import { getConfig } from './config';
+
+// Throw error when not 200 otherwise parse response.
+function tryParse(response: Response): Promise<any> {
+  if (response.status !== 200) {
+    throw response;
+  } else {
+    return response.json();
+  }
+}
 
 /**
  * Tries to log the user in based on the 'body' parameter.
@@ -23,20 +29,18 @@ import { getConfig } from './config';
  * @param {Object} body The body, representing the user, to send in JSON form to the back-end.
  * @returns { Promise } An empty Promise
  */
-export function login(body: Object): Promise<*> {
+export async function login(body: object): Promise<void> {
   const { authenticationUrl, dispatch } = getConfig();
 
-  return authFetch(authenticationUrl, {
+  const response = await authFetch(authenticationUrl, {
     headers: {
       'Content-Type': 'application/json',
     },
     method: 'post',
-    body: JSON.stringify(body)
-  })
-  .then(tryParse)
-  .then((user) => {
-    dispatch(handleLogin(user));
+    body: JSON.stringify(body),
   });
+  const user = await tryParse(response);
+  dispatch(handleLogin(user));
 }
 
 /**
@@ -56,19 +60,17 @@ export function login(body: Object): Promise<*> {
  *
  * @returns { Promise } An empty promise.
  */
-export function current(): Promise<*> {
+export async function current(): Promise<void> {
   const { currentUserUrl, dispatch } = getConfig();
 
-  return authFetch(currentUserUrl, {
+  const response = await authFetch(currentUserUrl, {
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    method: 'get'
-  })
-  .then(tryParse)
-  .then((user) => {
-    dispatch(handleLogin(user));
+    method: 'get',
   });
+  const user = await tryParse(response);
+  dispatch(handleLogin(user));
 }
 
 /**
@@ -80,25 +82,15 @@ export function current(): Promise<*> {
  *
  * @returns { Promise } An empty promise.
  */
-export function logout() {
+export async function logout(): Promise<void> {
   const { authenticationUrl, dispatch } = getConfig();
 
-  return authFetch(authenticationUrl, {
-    method: 'delete'
-  }).then((response: Response) => {
-    if (response.status === 200) {
-      dispatch(handleLogout());
-    } else {
-      throw response;
-    }
+  const response = await authFetch(authenticationUrl, {
+    method: 'delete',
   });
-}
-
-// Throw error when not 200 otherwise parse response.
-function tryParse(response: Response) {
-  if (response.status !== 200) {
-    throw response;
+  if (response.status === 200) {
+    dispatch(handleLogout());
   } else {
-    return response.json();
+    throw response;
   }
 }
