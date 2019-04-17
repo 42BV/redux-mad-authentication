@@ -1,6 +1,6 @@
 {
   "name": "redux-mad-authentication",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Authenticating with a Spring Security application and storing the currentUser in Redux.",
   "files": [
     "lib"
