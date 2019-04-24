@@ -1,11 +1,14 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { configureAuthentication } from '../../src/config';
 import { User } from '../../src/authentication-reducer';
 import AuthorizedRoute from '../../src/routeguards/AuthorizedRoute';
 
-const TestComponent: React.FunctionComponent = (): ReactElement => <h1>Hello World</h1>;
+function TestComponent() {
+  return <h1>Hello World</h1>;
+}
+
 interface UserWithRole extends User {
   role: 'ADMIN' | 'SUPERUSER';
 }
@@ -19,8 +22,8 @@ describe('AuthorizedRoute', () => {
       dispatch: jest.fn(),
       authenticationStore: () => ({
         isLoggedIn,
-        currentUser: { role: 'ADMIN' },
-      }),
+        currentUser: { role: 'ADMIN' }
+      })
     });
   }
 
@@ -29,14 +32,14 @@ describe('AuthorizedRoute', () => {
 
     const route = AuthorizedRoute({
       component: TestComponent,
-      extra: 'extra-extra-read-all-about-it',
+      exact: true,
       authorizer: authenticationStore => {
         const currentUser = authenticationStore.currentUser as UserWithRole;
         return currentUser.role === 'ADMIN';
-      },
+      }
     });
 
-    expect(route.props.extra).toBe('extra-extra-read-all-about-it');
+    expect(route.props.exact).toBe(true);
 
     const child = route.props.render();
     expect(child.type).toBe(TestComponent);
@@ -50,7 +53,7 @@ describe('AuthorizedRoute', () => {
       authorizer: authenticationStore => {
         const currentUser = authenticationStore.currentUser as UserWithRole;
         return currentUser.role === 'SUPERUSER';
-      },
+      }
     });
 
     const child = route.props.render({ location: '/dashboard' });
@@ -65,8 +68,8 @@ describe('AuthorizedRoute', () => {
 
     const route = AuthorizedRoute({
       component: TestComponent,
-      extra: 'prop',
-      authorizer: () => false,
+      exact: true,
+      authorizer: () => false
     });
 
     const child = route.props.render({ location: '/dashboard' });
