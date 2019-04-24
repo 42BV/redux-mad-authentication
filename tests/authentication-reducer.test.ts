@@ -6,7 +6,7 @@ import {
   handleLogin,
   handleLogout,
   AuthenticationState,
-  AuthenticationActions,
+  AuthenticationActions
 } from '../src/authentication-reducer';
 
 describe('Store: AuthenticationStore', () => {
@@ -21,7 +21,7 @@ describe('Store: AuthenticationStore', () => {
 
     const expected = {
       currentUser: undefined,
-      isLoggedIn: false,
+      isLoggedIn: false
     };
 
     expect(authenticationStore).toEqual(expected);

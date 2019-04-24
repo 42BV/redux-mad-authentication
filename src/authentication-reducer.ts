@@ -10,7 +10,7 @@ export interface AuthenticationState {
 
 export const initialState: AuthenticationState = {
   currentUser: undefined,
-  isLoggedIn: false,
+  isLoggedIn: false
 };
 
 /**
@@ -27,7 +27,10 @@ interface LoginAction extends Action<typeof LOGIN> {
 
 export type AuthenticationActions = LoginAction | LogoutAction;
 
-export function authentication(state = initialState, action: AuthenticationActions): AuthenticationState {
+export function authentication(
+  state = initialState,
+  action: AuthenticationActions
+): AuthenticationState {
   switch (action.type) {
     case LOGIN: {
       const { currentUser } = action as LoginAction;
@@ -35,7 +38,7 @@ export function authentication(state = initialState, action: AuthenticationActio
       return {
         ...state,
         isLoggedIn: true,
-        currentUser,
+        currentUser
       };
     }
 
@@ -44,7 +47,7 @@ export function authentication(state = initialState, action: AuthenticationActio
         ...state,
         isLoggedIn: false,
         currentUser: undefined,
-        csrfToken: undefined,
+        csrfToken: undefined
       };
     }
 

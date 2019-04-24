@@ -22,7 +22,7 @@ describe('AuthenticationService', () => {
       currentUserUrl: '/api/authentication/current',
       loginRoute: '/login',
       dispatch,
-      authenticationStore: () => ({ isLoggedIn: false, currentUser: undefined }),
+      authenticationStore: () => ({ isLoggedIn: false, currentUser: undefined })
     });
   });
 

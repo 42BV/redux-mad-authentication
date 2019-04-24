@@ -21,7 +21,10 @@ export interface Props extends React.ComponentProps<any> {
  * @param props The props for the PrivateRoute
  * @returns Either the Component or a Redirect
  */
-export default function PrivateRoute({ component, ...rest }: Props): JSX.Element {
+export default function PrivateRoute({
+  component,
+  ...rest
+}: Props): JSX.Element {
   const config: Config = getConfig();
   const authenticationStore: AuthenticationState = config.authenticationStore();
   const isLoggedIn = authenticationStore.isLoggedIn;
@@ -29,14 +32,16 @@ export default function PrivateRoute({ component, ...rest }: Props): JSX.Element
   return (
     <Route
       {...rest}
-      render={(props: RouteComponentProps & React.ClassAttributes<typeof component>) =>
+      render={(
+        props: RouteComponentProps & React.ClassAttributes<typeof component>
+      ) =>
         isLoggedIn ? (
           React.createElement(component, props)
         ) : (
           <Redirect
             to={{
               pathname: config.loginRoute,
-              state: { from: props.location },
+              state: { from: props.location }
             }}
           />
         )
