@@ -1,10 +1,12 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { configureAuthentication } from '../../src/config';
 import PrivateRoute from '../../src/routeguards/PrivateRoute';
 
-const TestComponent: React.FunctionComponent = (): ReactElement => <h1>Hello World</h1>;
+function TestComponent() {
+  return <h1>Hello World</h1>;
+}
 
 describe('PrivateRoute', () => {
   function setup({ isLoggedIn }: { isLoggedIn: boolean }): void {
@@ -13,7 +15,7 @@ describe('PrivateRoute', () => {
       currentUserUrl: '/api/authentication/current',
       loginRoute: '/login',
       dispatch: jest.fn(),
-      authenticationStore: () => ({ isLoggedIn, currentUser: { role: '' } }),
+      authenticationStore: () => ({ isLoggedIn, currentUser: { role: '' } })
     });
   }
 
@@ -22,9 +24,9 @@ describe('PrivateRoute', () => {
 
     const route = PrivateRoute({
       component: TestComponent,
-      extra: 'extra-extra-read-all-about-it',
+      exact: true
     });
-    expect(route.props.extra).toBe('extra-extra-read-all-about-it');
+    expect(route.props.exact).toBe(true);
 
     const child = route.props.render();
 
@@ -34,7 +36,7 @@ describe('PrivateRoute', () => {
   test('not logged in', () => {
     setup({ isLoggedIn: false });
 
-    const route = PrivateRoute({ component: TestComponent, extra: 'prop' });
+    const route = PrivateRoute({ component: TestComponent, exact: true });
 
     const child = route.props.render({ location: '/dashboard' });
 

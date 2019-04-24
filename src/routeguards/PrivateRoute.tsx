@@ -1,11 +1,18 @@
 import React from 'react';
-import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
+import {
+  Route,
+  Redirect,
+  RouteComponentProps,
+  RouteProps
+} from 'react-router-dom';
 
 import { getConfig, Config } from '../config';
 import { AuthenticationState } from '../authentication-reducer';
 
-export interface Props extends React.ComponentProps<any> {
-  component: React.FunctionComponent | React.ComponentClass;
+export interface Props extends RouteProps {
+  component:
+    | React.ComponentType<RouteComponentProps<any>>
+    | React.ComponentType<any>;
 }
 
 /**

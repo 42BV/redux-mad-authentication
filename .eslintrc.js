@@ -13,7 +13,7 @@ module.exports = {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
     indent: 'off',
-    '@typescript-eslint/indent': ['off', 2],
+    '@typescript-eslint/indent': ['off', 0],
     'react/prop-types': [0] // Disable propTypes warning @see https://stackoverflow.com/questions/41746028/proptypes-in-a-typescript-react-application
   },
   settings:  {
