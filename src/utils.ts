@@ -2,7 +2,11 @@ import { getConfig } from './config';
 import { handleLogout } from './authentication-reducer';
 
 // Get the XSRF token from the cookies.
-const getXSRFToken = (): string => document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+const getXSRFToken = (): string =>
+  document.cookie.replace(
+    /(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/,
+    '$1'
+  );
 
 /**
  * Calls fetch and makes sure that credentials: 'same-origin' is passed
@@ -16,21 +20,24 @@ const getXSRFToken = (): string => document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-
  * @param {Object} options optional object to send with the request
  * @return {Promise} fetch promise
  */
-export async function authFetch(url: RequestInfo, options: RequestInit = {}): Promise<Response> {
+export async function authFetch(
+  url: RequestInfo,
+  options: RequestInit = {}
+): Promise<Response> {
   const { dispatch } = getConfig();
 
   let headers = options.headers || {};
   if (options.method !== 'get') {
     headers = {
       'X-XSRF-TOKEN': getXSRFToken(),
-      ...headers,
+      ...headers
     };
   }
 
   const config = {
     ...options,
     credentials: 'same-origin' as RequestCredentials,
-    headers,
+    headers
   };
 
   const response = await fetch(url, config);

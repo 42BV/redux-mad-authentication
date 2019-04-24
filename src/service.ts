@@ -34,10 +34,10 @@ export async function login(body: object): Promise<void> {
 
   const response = await authFetch(authenticationUrl, {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     method: 'post',
-    body: JSON.stringify(body),
+    body: JSON.stringify(body)
   });
   const user = await tryParse(response);
   dispatch(handleLogin(user));
@@ -65,9 +65,9 @@ export async function current(): Promise<void> {
 
   const response = await authFetch(currentUserUrl, {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    method: 'get',
+    method: 'get'
   });
   const user = await tryParse(response);
   dispatch(handleLogin(user));
@@ -86,7 +86,7 @@ export async function logout(): Promise<void> {
   const { authenticationUrl, dispatch } = getConfig();
 
   const response = await authFetch(authenticationUrl, {
-    method: 'delete',
+    method: 'delete'
   });
   if (response.status === 200) {
     dispatch(handleLogout());

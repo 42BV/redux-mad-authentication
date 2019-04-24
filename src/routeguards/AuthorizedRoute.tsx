@@ -26,7 +26,11 @@ export interface Props extends React.ComponentProps<any> {
  * @param props The props for the AuthorizedRoute
  * @returns Either the Component or a Redirect
  */
-export default function AuthorizedRoute({ component, authorizer, ...rest }: Props): JSX.Element {
+export default function AuthorizedRoute({
+  component,
+  authorizer,
+  ...rest
+}: Props): JSX.Element {
   const config: Config = getConfig();
   const authenticationStore: AuthenticationState = config.authenticationStore();
 
@@ -36,14 +40,16 @@ export default function AuthorizedRoute({ component, authorizer, ...rest }: Prop
   return (
     <Route
       {...rest}
-      render={(props: RouteComponentProps & React.ClassAttributes<typeof component>) =>
+      render={(
+        props: RouteComponentProps & React.ClassAttributes<typeof component>
+      ) =>
         allowed ? (
           React.createElement(component, props)
         ) : (
           <Redirect
             to={{
               pathname: config.loginRoute,
-              state: { from: props.location },
+              state: { from: props.location }
             }}
           />
         )

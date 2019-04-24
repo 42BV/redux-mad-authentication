@@ -1,4 +1,7 @@
-import { AuthenticationState, AuthenticationActions as Actions } from './authentication-reducer';
+import {
+  AuthenticationState,
+  AuthenticationActions as Actions
+} from './authentication-reducer';
 
 export interface Config {
   // The URL to POST login request and DELETE logout request.
