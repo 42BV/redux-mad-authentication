@@ -60,7 +60,7 @@
     "prepublish": "rm -rf lib && npm run lint && npm test && npm run ts"
   },
   "dependencies": {
-    "node-fetch": "2.3.0"
+    "node-fetch": "2.6.1"
   },
   "jest": {
     "globals": {
